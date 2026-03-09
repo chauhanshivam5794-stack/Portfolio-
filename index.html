@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivam Chauhan — Web App Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#07070f;color:#f0f0fa;font-family:'Poppins',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:#3b82f6;border-radius:2px;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:16px 5%;background:rgba(7,7,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.07);}
+.logo{font-size:1.4rem;font-weight:800;color:#f0f0fa;text-decoration:none;letter-spacing:-0.5px;}
+.logo span{color:#3b82f6;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:#9ca3af;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:#f0f0fa;}
+.nav-cta{background:#3b82f6;color:#fff!important;padding:8px 20px;border-radius:8px;font-weight:600!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:#f0f0fa;border-radius:2px;transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(7,7,15,0.98);backdrop-filter:blur(20px);padding:24px 5%;border-bottom:1px solid rgba(255,255,255,0.07);z-index:998;}
+.mobile-menu.open{display:block;}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:20px;}
+.mobile-menu a{color:#9ca3af;text-decoration:none;font-size:1rem;font-weight:500;}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(59,130,246,0.1) 0%,transparent 70%);}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);}
+.hero-inner{position:relative;z-index:1;max-width:750px;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:6px 16px;border-radius:100px;font-size:0.78rem;font-weight:600;margin-bottom:28px;animation:fadeUp 0.6s ease both;}
+.badge-dot{width:7px;height:7px;background:#10b981;border-radius:50%;box-shadow:0 0 8px #10b981;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.hero-name{font-size:clamp(2.8rem,7vw,5.2rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:8px;animation:fadeUp 0.6s 0.1s ease both;}
+h2.hero-role{font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:700;background:linear-gradient(90deg,#3b82f6,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px;animation:fadeUp 0.6s 0.15s ease both;}
+.hero-desc{font-size:1.05rem;color:#9ca3af;line-height:1.8;max-width:520px;margin-bottom:40px;animation:fadeUp 0.6s 0.2s ease both;}
+.hero-desc strong{color:#f0f0fa;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 0.6s 0.25s ease both;}
+.btn-primary{background:#3b82f6;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:0.95rem;transition:all 0.25s;box-shadow:0 4px 20px rgba(59,130,246,0.35);}
+.btn-primary:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 10px 32px rgba(59,130,246,0.45);}
+.btn-ghost{background:transparent;color:#f0f0fa;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.15);transition:all 0.25s;}
+.btn-ghost:hover{border-color:#3b82f6;color:#3b82f6;}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.07);animation:fadeUp 0.6s 0.3s ease both;}
+.stat-val{font-size:2rem;font-weight:900;color:#f0f0fa;line-height:1;}
+.stat-val span{color:#3b82f6;}
+.stat-lbl{color:#6b7280;font-size:0.8rem;margin-top:4px;font-weight:500;}
+
+/* SECTIONS */
+section{padding:90px 5%;}
+.sec-tag{font-size:0.75rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#3b82f6;margin-bottom:10px;}
+.sec-title{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-1px;margin-bottom:14px;line-height:1.15;}
+.sec-sub{color:#9ca3af;font-size:0.97rem;max-width:480px;line-height:1.75;margin-bottom:52px;}
+
+/* ABOUT */
+#about{background:#0b0b16;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.about-text p{color:#9ca3af;font-size:0.97rem;line-height:1.8;margin-bottom:20px;}
+.about-text p strong{color:#f0f0fa;}
+.about-skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.skill-tag{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:#93c5fd;padding:6px 16px;border-radius:100px;font-size:0.8rem;font-weight:600;}
+.about-card{background:#111122;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px;}
+.about-card h4{font-size:1.1rem;font-weight:700;margin-bottom:20px;color:#f0f0fa;}
+.build-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.build-list li{display:flex;align-items:center;gap:12px;color:#9ca3af;font-size:0.9rem;}
+.build-list li::before{content:'';width:8px;height:8px;background:#3b82f6;border-radius:50%;flex-shrink:0;}
+
+/* SERVICES */
+#services{background:#07070f;}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.service-card{background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:30px;transition:all 0.3s;position:relative;overflow:hidden;}
+.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity 0.3s;}
+.service-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,0.3);box-shadow:0 20px 48px rgba(0,0,0,0.4);}
+.service-card:hover::after{opacity:1;}
+.s1::after{background:linear-gradient(90deg,#3b82f6,#06b6d4);}
+.s2::after{background:linear-gradient(90deg,#8b5cf6,#ec4899);}
+.s3::after{background:linear-gradient(90deg,#10b981,#3b82f6);}
+.s4::after{background:linear-gradient(90deg,#f59e0b,#ef4444);}
+.svc-icon{font-size:2.2rem;margin-bottom:18px;display:block;}
+.service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px;}
+.service-card p{color:#9ca3af;font-size:0.87rem;line-height:1.7;}
+.svc-price{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);font-weight:700;color:#3b82f6;font-size:0.9rem;}
+
+/* PORTFOLIO */
+#portfolio{background:#0b0b16;}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:22px;}
+.project-card{background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:18px;overflow:hidden;transition:all 0.3s;}
+.project-card:hover{transform:translateY(-5px);box-shadow:0 24px 48px rgba(0,0,0,0.5);border-color:rgba(59,130,246,0.25);}
+.proj-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;}
+.proj-body{padding:24px;}
+.proj-tag{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;}
+.project-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;}
+.project-card p{color:#9ca3af;font-size:0.85rem;line-height:1.65;}
+.proj-features{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.feat{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);color:#93c5fd;font-size:0.72rem;padding:3px 10px;border-radius:100px;}
+
+/* WHY CHOOSE */
+#why{background:#07070f;}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+.why-card{background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;text-align:center;transition:all 0.3s;}
+.why-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-3px);}
+.why-icon{font-size:2rem;margin-bottom:14px;display:block;}
+.why-card h4{font-size:0.97rem;font-weight:700;margin-bottom:8px;}
+.why-card p{color:#9ca3af;font-size:0.83rem;line-height:1.6;}
+
+/* BENEFITS */
+#benefits{background:#0b0b16;}
+.benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.benefit-item{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px;}
+.benefit-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.benefit-item h4{font-size:0.97rem;font-weight:700;margin-bottom:6px;}
+.benefit-item p{color:#9ca3af;font-size:0.85rem;line-height:1.6;}
+.benefits-visual{background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:36px;text-align:center;}
+.big-stat{font-size:3.5rem;font-weight:900;line-height:1;margin-bottom:8px;}
+.big-stat-lbl{color:#9ca3af;font-size:0.9rem;margin-bottom:28px;}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.mini-stat{background:#0b0b16;border-radius:12px;padding:20px;text-align:center;}
+.mini-stat-val{font-size:1.6rem;font-weight:800;color:#3b82f6;line-height:1;}
+.mini-stat-lbl{color:#6b7280;font-size:0.75rem;margin-top:4px;}
+
+/* PROCESS */
+#process{background:#07070f;}
+.process-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;position:relative;}
+.step-card{background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;transition:all 0.3s;text-align:center;}
+.step-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-3px);}
+.step-num{font-size:3rem;font-weight:900;color:rgba(59,130,246,0.15);line-height:1;margin-bottom:12px;font-family:'Poppins',sans-serif;}
+.step-card h4{font-size:0.97rem;font-weight:700;margin-bottom:8px;}
+.step-card p{color:#9ca3af;font-size:0.83rem;line-height:1.65;}
+
+/* CONTACT */
+#contact{background:#0b0b16;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:52px;align-items:start;}
+.contact-left h3{font-size:1.5rem;font-weight:800;margin-bottom:14px;letter-spacing:-0.5px;}
+.contact-left p{color:#9ca3af;line-height:1.75;margin-bottom:32px;font-size:0.93rem;}
+.contact-link{display:flex;align-items:center;gap:14px;padding:16px 18px;background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:12px;text-decoration:none;color:#f0f0fa;transition:all 0.2s;}
+.contact-link:hover{border-color:#3b82f6;transform:translateX(4px);}
+.clink-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.clink-label{font-size:0.8rem;color:#6b7280;display:block;}
+.clink-val{font-size:0.9rem;font-weight:600;}
+.contact-form{background:#111122;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:36px;}
+.contact-form h3{font-size:1.2rem;font-weight:700;margin-bottom:24px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:0.78rem;font-weight:600;color:#9ca3af;margin-bottom:7px;letter-spacing:0.3px;}
+.field input,.field select,.field textarea{width:100%;background:#07070f;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 15px;color:#f0f0fa;font-family:'Poppins',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#3b82f6;}
+.field textarea{resize:vertical;min-height:95px;}
+.field select option{background:#0b0b16;}
+.submit-btn{width:100%;background:#3b82f6;color:#fff;border:none;padding:15px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:0.97rem;font-weight:700;cursor:pointer;transition:all 0.25s;margin-top:4px;}
+.submit-btn:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 10px 30px rgba(59,130,246,0.4);}
+
+/* FOOTER */
+footer{padding:36px 5%;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-size:1.1rem;font-weight:800;}
+.footer-logo span{color:#3b82f6;}
+.footer-copy{color:#6b7280;font-size:0.82rem;}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{color:#6b7280;text-decoration:none;font-size:0.82rem;transition:color 0.2s;}
+.footer-links a:hover{color:#f0f0fa;}
+
+/* WA FLOAT */
+.wa-btn{position:fixed;bottom:28px;right:28px;z-index:900;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,0.45);transition:all 0.3s;animation:popIn 1s 1s ease both;}
+.wa-btn:hover{transform:scale(1.12);box-shadow:0 8px 36px rgba(37,211,102,0.55);}
+@keyframes popIn{from{opacity:0;transform:scale(0.3)}to{opacity:1;transform:scale(1)}}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.show{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:14px 5%;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  #hero{padding:100px 5% 60px;}
+  .about-grid,.benefits-grid,.contact-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-stats{gap:24px;}
+  section{padding:70px 5%;}
+}
+@media(max-width:480px){
+  .hero-stats{flex-wrap:wrap;gap:20px;}
+  .stat-val{font-size:1.6rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">SC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#services" onclick="closeMenu()">Services</a></li>
+    <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
+    <li><a href="#process" onclick="closeMenu()">Process</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Available for new projects
+    </div>
+    <h1 class="hero-name">Shivam Chauhan</h1>
+    <h2 class="hero-role">Web App Developer</h2>
+    <p class="hero-desc">
+      I build <strong>powerful business web apps</strong> like e-learning platforms,
+      booking systems, e-commerce stores and professional business websites —
+      <strong>fast, affordable & mobile-friendly.</strong>
+    </p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-primary">🚀 View My Work</a>
+      <a href="#contact" class="btn-ghost">Contact Me →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">20<span>+</span></div>
+        <div class="stat-lbl">Projects Delivered</div>
+      </div>
+      <div>
+        <div class="stat-val">3-5</div>
+        <div class="stat-lbl">Days Delivery</div>
+      </div>
+      <div>
+        <div class="stat-val">₹3K<span>+</span></div>
+        <div class="stat-lbl">Starting Price</div>
+      </div>
+      <div>
+        <div class="stat-val">100<span>%</span></div>
+        <div class="stat-lbl">Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="sec-tag">◆ About Me</div>
+      <h2 class="sec-title">Apke Business Ko Online Laata Hun</h2>
+      <p>Main <strong>Shivam Chauhan</strong> hun — ek web app developer jo local businesses ko
+      powerful digital tools deta hai. Main AI ki help se fast aur affordable websites aur apps banata hun.</p>
+      <p>Mere paas <strong>HTML, CSS, JavaScript aur Python</strong> ki skill hai. Main kisi bhi
+      business ka idea samajh ke uske liye best solution build karta hun — chahe coaching center ho,
+      beauty parlour ho ya koi bhi local shop.</p>
+      <div class="about-skills">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">Web Apps</span>
+      </div>
+    </div>
+    <div class="about-card reveal">
+      <h4>🏗️ Main Kya Build Karta Hun</h4>
+      <ul class="build-list">
+        <li>E-Learning Platforms with student dashboard</li>
+        <li>Beauty Parlour booking websites</li>
+        <li>Restaurant websites with digital menu</li>
+        <li>E-Commerce stores with payment</li>
+        <li>Business websites with contact forms</li>
+        <li>Mobile-friendly web apps</li>
+        <li>Custom admin panels</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="sec-tag">◆ Services</div>
+  <h2 class="sec-title">Main Aapke Liye Kya Bana Sakta Hun?</h2>
+  <p class="sec-sub">Har business ke liye alag solution — fast delivery aur affordable price ke saath.</p>
+  <div class="services-grid">
+    <div class="service-card s1 reveal">
+      <span class="svc-icon">🌐</span>
+      <h3>Business Website</h3>
+      <p>Parlour, shop, coaching ya kisi bhi business ke liye professional website. Google pe dikhoge, customers trust karenge.</p>
+      <div class="svc-price">Starting ₹3,000</div>
+    </div>
+    <div class="service-card s2 reveal">
+      <span class="svc-icon">📚</span>
+      <h3>E-Learning Platform</h3>
+      <p>Online classes, video courses, student dashboard, notes aur fee payment — aapka coaching 24/7 online.</p>
+      <div class="svc-price">Starting ₹8,000</div>
+    </div>
+    <div class="service-card s3 reveal">
+      <span class="svc-icon">📱</span>
+      <h3>Custom Web Apps</h3>
+      <p>Booking system, appointment app, inventory manager — aapke business ki zaroorat ke hisaab se custom app.</p>
+      <div class="svc-price">Starting ₹6,000</div>
+    </div>
+    <div class="service-card s4 reveal">
+      <span class="svc-icon">🛒</span>
+      <h3>E-Commerce Store</h3>
+      <p>Products, cart, UPI payment, order tracking — aapki dukaan ab online. Ghar baithe orders aayenge.</p>
+      <div class="svc-price">Starting ₹10,000</div>
+    </div>
+    <div class="service-card s1 reveal">
+      <span class="svc-icon">🍽️</span>
+      <h3>Restaurant Website</h3>
+      <p>Digital menu, table booking, home delivery, WhatsApp order — aapke restaurant ke liye complete solution.</p>
+      <div class="svc-price">Starting ₹4,000</div>
+    </div>
+    <div class="service-card s2 reveal">
+      <span class="svc-icon">🔧</span>
+      <h3>Maintenance & Support</h3>
+      <p>Website updates, new features add karna, speed improve karna — main hamesha available hun aapke liye.</p>
+      <div class="svc-price">₹500/month</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PORTFOLIO ===== -->
+<section id="portfolio">
+  <div class="sec-tag">◆ Portfolio</div>
+  <h2 class="sec-title">Mera Kaam Dekho</h2>
+  <p class="sec-sub">Real businesses ke liye banaye real projects — inhe dekh ke khud judge karo.</p>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);">🎓</div>
+      <div class="proj-body">
+        <span class="proj-tag" style="background:rgba(139,92,246,0.12);color:#c4b5fd;">E-Learning</span>
+        <h3>Coaching E-Learning Platform</h3>
+        <p>Complete student portal with video classes, notes download, fee payment and admin dashboard for teachers.</p>
+        <div class="proj-features">
+          <span class="feat">Student Login</span>
+          <span class="feat">Video Classes</span>
+          <span class="feat">Notes</span>
+          <span class="feat">Admin Panel</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#ec4899,#f97316);">💄</div>
+      <div class="proj-body">
+        <span class="proj-tag" style="background:rgba(236,72,153,0.12);color:#f9a8d4;">Beauty Parlour</span>
+        <h3>Beauty Parlour Website</h3>
+        <p>Online appointment booking system, services list with prices, before-after gallery and WhatsApp integration.</p>
+        <div class="proj-features">
+          <span class="feat">Online Booking</span>
+          <span class="feat">Service List</span>
+          <span class="feat">Gallery</span>
+          <span class="feat">WhatsApp</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">🛒</div>
+      <div class="proj-body">
+        <span class="proj-tag" style="background:rgba(245,158,11,0.12);color:#fcd34d;">E-Commerce</span>
+        <h3>Local Business Online Store</h3>
+        <p>Full product catalog, cart system, UPI/online payment, order management and WhatsApp order confirmation.</p>
+        <div class="proj-features">
+          <span class="feat">UPI Payment</span>
+          <span class="feat">Cart</span>
+          <span class="feat">Orders</span>
+          <span class="feat">Mobile Friendly</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#10b981,#3b82f6);">🍽️</div>
+      <div class="proj-body">
+        <span class="proj-tag" style="background:rgba(16,185,129,0.12);color:#6ee7b7;">Restaurant</span>
+        <h3>Restaurant Digital Platform</h3>
+        <p>Digital menu with food photos, table booking, home delivery integration and special offers section.</p>
+        <div class="proj-features">
+          <span class="feat">Digital Menu</span>
+          <span class="feat">Booking</span>
+          <span class="feat">Delivery</span>
+          <span class="feat">Offers</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">🏢</div>
+      <div class="proj-body">
+        <span class="proj-tag" style="background:rgba(59,130,246,0.12);color:#93c5fd;">Business</span>
+        <h3>Professional Business Website</h3>
+        <p>Company profile, services showcase, contact form with Google Maps, SEO optimized for local search.</p>
+        <div class="proj-features">
+          <span class="feat">SEO</span>
+          <span class="feat">Google Maps</span>
+          <span class="feat">Contact Form</span>
+          <span class="feat">Fast Loading</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">📊</div>
+      <div class="proj-body">
+        <span class="proj-tag" style="background:rgba(99,102,241,0.12);color:#a5b4fc;">Web App</span>
+        <h3>Custom Booking Web App</h3>
+        <p>Appointment management system, customer database, automated reminders and business analytics dashboard.</p>
+        <div class="proj-features">
+          <span class="feat">Appointments</span>
+          <span class="feat">Customer DB</span>
+          <span class="feat">Analytics</span>
+          <span class="feat">Reminders</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE ME ===== -->
+<section id="why">
+  <div class="sec-tag">◆ Why Choose Me</div>
+  <h2 class="sec-title">Mujhe Kyun Choose Karo?</h2>
+  <p class="sec-sub">Ye cheezein mujhe baaki developers se alag banati hain.</p>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <span class="why-icon">🎨</span>
+      <h4>Professional Design</h4>
+      <p>Modern, clean aur attractive design jo aapke business ko premium feel deta hai.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">⚡</span>
+      <h4>Fast Performance</h4>
+      <p>Super fast loading websites — customers wait nahi karenge, bounce nahi hoga.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">📱</span>
+      <h4>Mobile Friendly</h4>
+      <p>Har device pe perfect — mobile, tablet aur desktop sab pe badhiya dikhega.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">💰</span>
+      <h4>Affordable Price</h4>
+      <p>Quality se compromise kiye bina best price — aapke budget mein fit hoga.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">🔧</span>
+      <h4>Custom Solutions</h4>
+      <p>Aapke business ki specific zaroorat ke hisaab se banaya — koi copy paste nahi.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">🤝</span>
+      <h4>After Support</h4>
+      <p>Website deliver hone ke baad bhi main available hun — koi bhi problem ho, call karo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BENEFITS ===== -->
+<section id="benefits">
+  <div class="benefits-grid">
+    <div class="reveal">
+      <div class="sec-tag">◆ Client Benefits</div>
+      <h2 class="sec-title">Aapko Kya Milega?</h2>
+      <p class="sec-sub" style="margin-bottom:36px;">Ek acchi website sirf dikhne mein nahi, actually aapke business ko grow karti hai.</p>
+      <div class="benefit-item">
+        <div class="benefit-icon" style="background:rgba(59,130,246,0.12);">👥</div>
+        <div>
+          <h4>More Customers Online</h4>
+          <p>Google pe dikhoge, social media pe share hoga — naye customers khud aayenge.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon" style="background:rgba(16,185,129,0.12);">🌍</div>
+        <div>
+          <h4>24/7 Online Presence</h4>
+          <p>Aapki website raat ko bhi kaam karti hai — aap soye, customers info lete rahenge.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon" style="background:rgba(245,158,11,0.12);">⚙️</div>
+        <div>
+          <h4>Easy Management</h4>
+          <p>Simple interface — aap khud update kar sako apni website. Koi dependency nahi.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon" style="background:rgba(139,92,246,0.12);">✨</div>
+        <div>
+          <h4>Professional Image</h4>
+          <p>Customers ke saamne aap professional lagte ho — trust badhta hai, business badhta hai.</p>
+        </div>
+      </div>
+    </div>
+    <div class="benefits-visual reveal">
+      <div class="big-stat" style="color:#3b82f6;">40%</div>
+      <div class="big-stat-lbl">Average business growth after getting a website</div>
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-stat-val">3x</div>
+          <div class="mini-stat-lbl">More Enquiries</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-val">5★</div>
+          <div class="mini-stat-lbl">Client Rating</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-val">3-5</div>
+          <div class="mini-stat-lbl">Days Delivery</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-val">24/7</div>
+          <div class="mini-stat-lbl">Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section id="process">
+  <div class="sec-tag">◆ My Process</div>
+  <h2 class="sec-title">Kaise Kaam Karta Hun?</h2>
+  <p class="sec-sub">Simple 4 step process — aapko sirf idea batana hai, main sab handle karunga.</p>
+  <div class="process-row">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <h4>Business Understanding</h4>
+      <p>Aapka business samajhta hun — kya chahiye, kaun customers hain, kya goal hai. Free consultation.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <h4>Planning & Design</h4>
+      <p>24 ghante mein design ready — aapko dikhata hun. Pasand aaye tab aage badhte hain.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <h4>Development</h4>
+      <p>3-5 din mein poori website ya app ready. Beech mein updates deta rahta hun — koi surprise nahi.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">04</div>
+      <h4>Launch & Support</h4>
+      <p>Website live karte hain, sikhata hun kaise use karna hai. Uske baad bhi main available hun.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="sec-tag">◆ Contact</div>
+  <h2 class="sec-title">Project Start Karein?</h2>
+  <p class="sec-sub">Aaj hi baat karo — free consultation ke saath shuru karte hain. Koi commitment nahi.</p>
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <h3>Seedha Sampark Karo 👋</h3>
+      <p>Koi bhi sawaal ho — website ke baare mein, price ke baare mein, ya sirf samajhna ho ki main kya kar sakta hun — baat karo. Fast reply guaranteed.</p>
+      <a href="https://wa.me/918858166635" class="contact-link" target="_blank">
+        <div class="clink-icon" style="background:rgba(37,211,102,0.12);">💬</div>
+        <div>
+          <span class="clink-label">WhatsApp</span>
+          <span class="clink-val">+91 88581 66635</span>
+        </div>
+      </a>
+      <a href="tel:+918858166635" class="contact-link">
+        <div class="clink-icon" style="background:rgba(59,130,246,0.12);">📞</div>
+        <div>
+          <span class="clink-label">Phone Call</span>
+          <span class="clink-val">+91 88581 66635</span>
+        </div>
+      </a>
+      <div class="contact-link" style="cursor:default;">
+        <div class="clink-icon" style="background:rgba(245,158,11,0.12);">⏰</div>
+        <div>
+          <span class="clink-label">Available Hours</span>
+          <span class="clink-val">10:00 AM – 8:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <h3>Free Quote Maango 🚀</h3>
+      <div class="form-row">
+        <div class="field">
+          <label>Aapka Naam</label>
+          <input type="text" placeholder="Ramesh Sharma" id="fname">
+        </div>
+        <div class="field">
+          <label>WhatsApp Number</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX" id="fphone">
+        </div>
+      </div>
+      <div class="field">
+        <label>Business Type</label>
+        <select id="fbiz">
+          <option value="">Select karo...</option>
+          <option>Beauty Parlour / Salon</option>
+          <option>Coaching / Classes</option>
+          <option>Restaurant / Dhaba</option>
+          <option>Online Shop (E-Commerce)</option>
+          <option>General Business</option>
+          <option>Kuch Aur</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Kya Chahiye? (Optional)</label>
+        <textarea placeholder="Jaise: Mujhe online booking chahiye, ya students ke liye portal..." id="fmsg"></textarea>
+      </div>
+      <button class="submit-btn" onclick="sendWA()">Start My Project 🚀</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Shivam Chauhan<span>.</span></div>
+  <div class="footer-copy">© 2024 Shivam Chauhan. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/918858166635" class="wa-btn" target="_blank" title="WhatsApp pe baat karo">💬</a>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2)';ring.style.width='52px';ring.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';});
+});
+
+// MOBILE MENU
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');}
+
+// SCROLL REVEAL
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('show'),i*80);});
+},{threshold:0.1});
+reveals.forEach(r=>obs.observe(r));
+
+// WHATSAPP FORM SEND
+function sendWA(){
+  const n=document.getElementById('fname').value||'(naam nahi diya)';
+  const p=document.getElementById('fphone').value||'(number nahi diya)';
+  const b=document.getElementById('fbiz').value||'(select nahi kiya)';
+  const m=document.getElementById('fmsg').value||'';
+  const msg=`Namaste Shivam bhai! 👋\n\nMujhe website banwani hai.\n\nNaam: ${n}\nPhone: ${p}\nBusiness: ${b}\nDetails: ${m}\n\nPlease quote batao.`;
+  window.open('https://wa.me/918858166635?text='+encodeURIComponent(msg),'_blank');
+}
+
+// NAV ACTIVE
+const secs=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur2='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur2=s.id;});
+  navAs.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur2?'#f0f0fa':'';});
+});
+</script>
+</body>
+</html>
